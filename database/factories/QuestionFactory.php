@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Questions>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Question>
  */
 class QuestionFactory extends Factory
 {
@@ -20,8 +20,7 @@ class QuestionFactory extends Factory
             'survey_id' => $this->faker->numberBetween(1, 20),
             'question' => $this->faker->paragraph(),
             'description' => $this->faker->text(),
-            'options' => "option1|option2|option3|option4",
-            'multiple_choice' => $this->faker->numberBetween(0, 1),
+            'type_id' => $this->faker->numberBetween(1, 6),
         ];
     }
 }

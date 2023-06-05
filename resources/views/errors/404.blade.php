@@ -1,23 +1,31 @@
-<x-layout title="Error 404" show_contact="true">
-    <div class="flex flex-col justify-center items-center">
-        <section class="w-full p-4 py-10">
-            <div class="flex flex-col align-center items-center md:w-1/2 w-full max-w-screen-xl mx-auto">
-                <img class="absolute -z-10 w-96 text-gray-400" src="/error.png" alt="error_image">
+@extends('layouts.layout')
 
-                <h2 class="text-7xl text-red-700 font-bold">404</h2>
+@section('title', 'Error 404')
 
-                <p class="text-center text-red-700 font-bold">
-                    <span class="bg-white">Looks like this page does not exist.</span>
-                </p>
+@section('content')
 
-                <p class="w-96 max-w-full mb-4 text-center text-red-700 font-bold">
-                    <span class="bg-white">Please check the URL again or back to the homepage</span>
-                </p>
+    <div class="max-w-screen-xl mx-auto mt-12 mb-16 md:w-5/6">
+        <div class="p-4 bg-white shadow sm:rounded-lg">
+            <div class="flex flex-col items-center w-full py-16 bg-white align-center">
+                <div class="flex flex-col items-center max-w-xl align-center">
+                    <img class="absolute text-gray-400 w-[26rem]" src="imgs/error.png" alt="error_image">
 
-                <a href="/"
-                    class="w-44 mt-52 py-2 px-4 border border-transparent rounded bg-green-600 hover:bg-green-700 text-green-700 font-bold text-white text-center">
-                    Back to homepage</a>
+                    <h2 class="z-10 font-bold text-red-700 text-7xl">404</h2>
+
+                    <p class="z-10 text-xl font-bold text-center text-red-700">
+                        <span class="bg-white">Looks like this page does not exist.</span>
+                    </p>
+
+                    <p class="z-10 max-w-full mb-4 text-xl font-bold text-center text-red-700">
+                        <span class="bg-white">Please check the URL again or back to the <br>homepage</span>
+                    </p>
+
+                    <a href="/" class="px-4 py-2 font-bold text-center text-white bg-green-600 border border-transparent rounded mt-52 w-44 hover:bg-green-700">
+                        Back to homepage
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
     </div>
-</x-layout>
+
+@endsection

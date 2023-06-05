@@ -15,50 +15,73 @@ class SurveyController extends Controller
     // update - update what edited
     // destroy - delete
 
-    public function index() {
-        return view('pages.home', ['surveys' => Survey::all()]);
+    public function index()
+    {
+        return view('home', ['surveys' => Survey::all()]);
     }
 
-    public function show(Survey $survey) {
-        return view('pages.surveys.survey', ['survey_data' => $survey]);
+    public function show(Survey $survey)
+    {
+        return view('surveys.survey', ['survey_data' => $survey]);
     }
 
-    public function create() {
-        return view('pages.surveys.create');
+    public function create()
+    {
+        return view('surveys.create');
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $surveys = Survey::latest('surveys.created_at')->filter(request(['tag', 'search']))->paginate(6);
 
-        return view('pages.surveys.search', ['surveys' => $surveys]);
+        return view('surveys.search', ['surveys' => $surveys]);
     }
 
-    public function top6() {
+    public function top6()
+    {
         $surveys = Survey::all();
-        $respondents = [];
-        $top_surveys = [];
 
-        foreach ($surveys as $survey) {
+        $popular_value = [];
+        $popular_surveys = [];
+        $lastest_surveys = [];
+
+        for ($k = 0; $k < count($surveys); $k++) {
+            $survey = $surveys[$k];
+
+            // calc number of respondents
             $respondents_sum = 0;
             if ($survey->questions[0] ?? false) $respondents_sum = count($survey->questions[0]->answers);
-
             $survey->respondents = $respondents_sum;
-            array_push($respondents, $respondents_sum);
-            array_push($top_surveys, $survey);
 
-            for ($i = 0; $i < count($respondents); $i++) {
-                if ($respondents_sum > $respondents[$i]) {
-                    for ($j = count($respondents) - 1; $j > $i; $j--) {
-                        $respondents[$j] = $respondents[$j - 1];
-                        $top_surveys[$j] = $top_surveys[$j - 1];
+            // calc users rating
+            $rating_sum = 0;
+            foreach ($survey->ratings as $rating) $rating_sum += $rating['rating'];
+            $rating_sum /= (count($survey->ratings) > 0 ? count($survey->ratings) : 1);
+            $survey->users_ratings = number_format((float)round($rating_sum, 2), 2, '.', '');
+
+            // save lastest
+            if ($k > count($surveys) - 7) array_push($lastest_surveys, $survey);
+
+            // save the most popular
+            array_push($popular_surveys, $survey);
+
+            // sort the most popular by (respondents * rating)
+            array_push($popular_value, $respondents_sum * $rating_sum);
+
+            for ($i = 0; $i < count($popular_value); $i++) {
+                if ($respondents_sum * $rating_sum > $popular_value[$i]) {
+                    for ($j = count($popular_value) - 1; $j > $i; $j--) {
+                        $popular_value[$j] = $popular_value[$j - 1];
+                        $popular_surveys[$j] = $popular_surveys[$j - 1];
                     }
-                    $respondents[$i] = $respondents_sum;
-                    $top_surveys[$i] = $survey;
+
+                    $popular_value[$i] = $respondents_sum * $rating_sum;
+                    $popular_surveys[$i] = $survey;
                     break;
                 }
             }
         }
 
-        return view('pages.home', ['surveys' => array_slice($top_surveys, 0, 6)]);
+        return view('home', ['popular' => array_slice($popular_surveys, 0, 6), 'latest' => array_slice($lastest_surveys, 0, 6)]);
     }
 }

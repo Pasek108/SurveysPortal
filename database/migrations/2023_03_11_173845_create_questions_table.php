@@ -17,8 +17,7 @@ return new class extends Migration
             $table->foreignId('survey_id')->constrained('surveys');
             $table->string('question', 300);
             $table->string('description', 1200);
-            $table->string('options', 2000);
-            $table->tinyInteger('multiple_choice');
+            $table->foreignId('type_id')->constrained('question_types');
             $table->timestamps();
         });
     }

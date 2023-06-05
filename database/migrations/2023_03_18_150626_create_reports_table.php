@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('survey_id')->constrained('surveys');
-            $table->string("reason", 500);
+            $table->string('reason', 500);
             $table->timestamps();
         });
     }

@@ -19,6 +19,10 @@ class Survey extends Model
         return $this->HasMany(Question::class);
     }
 
+    public function ratings(): HasMany {
+        return $this->HasMany(Rating::class);
+    }
+
     public function scopeFilter($query, array $filters) {
         if (($filters['tag'] ?? false) || ($filters['search'] ?? false)) {
             $query->select()

@@ -2,16 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Answer;
-use App\Models\Ban;
-use App\Models\Contact;
-use App\Models\Question;
-use App\Models\Report;
-use App\Models\Survey;
-use App\Models\SurveyTag;
-use App\Models\Tag;
-use App\Models\User;
-
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,14 +12,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(20)->create();
-        Tag::factory(20)->create();
-        Survey::factory(20)->create();
-        Question::factory(20)->create();
-        Answer::factory(20)->create();
-        SurveyTag::factory(20)->create();
-        Contact::factory(12)->create();
-        Ban::factory(4)->create();
-        Report::factory(6)->create();
+        // \App\Models\User::factory(10)->create();
+
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            BanSeeder::class,
+            TagSeeder::class,
+            QuestionTypeSeeder::class,
+            SurveySeeder::class,
+            SurveyTagSeeder::class,
+            QuestionSeeder::class,
+            AnswerSeeder::class,
+            UserAnswerSeeder::class,
+            ReportSeeder::class,
+            ContactSeeder::class,
+            RatingSeeder::class
+        ]);
     }
 }

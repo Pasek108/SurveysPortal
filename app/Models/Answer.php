@@ -11,10 +11,6 @@ class Answer extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
     public function question(): BelongsTo {
         return $this->belongsTo(Question::class);
     }

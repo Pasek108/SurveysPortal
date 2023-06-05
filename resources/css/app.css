@@ -7,7 +7,7 @@
 }
 
 html {
-    font-size: 1.1rem;
+    font-size: 16px;
 }
 
 .line-clamp-3 {
@@ -15,4 +15,23 @@ html {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+}
+
+.text-shadow {
+    text-shadow: 0 -2px 5px rgb(255 255 255), 0 2px 5px rgb(255 255 255);
+    color: #0e8aff20;
+}
+
+.card-line-back {
+    transform: translateZ(-10px) rotate(45deg);
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
 }
