@@ -30,12 +30,12 @@ Route::get('/', function () {
 /* ----------------------- surveys ----------------------- */
 Route::controller(SurveyController::class)->group(function () {
     Route::get('/',                           'top6');
-    Route::get('/surveys/search',             'search');
-    Route::get('/surveys/create',             'create')->middleware('auth');
-    Route::get('/surveys/store',              'store')->middleware('auth');
-    Route::get('/surveys/{survey:name}',      'show')->where('name', '[a-z0-9]+');
-    Route::get('/surveys/{survey:name}/edit', 'edit');
-    Route::put('/surveys/{survey:name}',      'update');
+    Route::get('/survey/search',             'search');
+    Route::get('/survey/create',             'create')->middleware('auth');
+    Route::post('/survey/store',             'store')->middleware('auth');
+    Route::get('/survey/{survey:id}',        'show')->where('id', '[0-9]+');
+    Route::get('/survey/{survey:id}/edit',   'edit');
+    Route::put('/survey/{survey:id}',        'update');
 });
 
 /* ----------------------- admin panel ----------------------- */

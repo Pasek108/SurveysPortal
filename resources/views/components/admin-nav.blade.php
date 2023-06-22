@@ -43,22 +43,22 @@
 @endphp
 
 <div id="open-admin-nav"
-    class="absolute top-0 z-10 md:hidden flex flex-col justify-center items-center w-12 h-12 rounded-br-md bg-slate-800 text-white">
-    <i class="fa-solid fa-bars text-2xl"></i>
+    class="absolute top-0 z-10 flex flex-col items-center justify-center w-12 h-12 text-white md:hidden rounded-br-md bg-slate-800">
+    <i class="text-2xl fa-solid fa-bars"></i>
 </div>
 
 <div id="admin-nav"
-    class="absolute top-0 z-10 md:mt-0 md:static hidden md:flex flex-col w-full p-5 pt-12 md:pt-5 bg-slate-800 text-white h-screen">
+    class="absolute top-0 z-10 flex-col hidden w-full h-screen p-5 pt-12 text-white md:mt-0 md:static md:flex md:pt-5 bg-slate-800">
     <div id="close-admin-nav"
-        class="absolute top-2 right-2 md:hidden flex flex-col justify-center items-center w-12 h-12">
-        <i class="fa-solid fa-xmark text-3xl"></i>
+        class="absolute flex flex-col items-center justify-center w-12 h-12 top-2 right-2 md:hidden">
+        <i class="text-3xl fa-solid fa-xmark"></i>
     </div>
 
-    <ul class="w-full flex flex-col justify-center flex-wrap">
+    <ul class="flex flex-col flex-wrap justify-center w-full">
         <li>
             <a href="/admin-panel/"
                 class="relative block w-full p-1.5 font-bold hover:underline {{ $active_page == 'dashboard' ? 'text-lime-500' : '' }}">
-                <i class="fa-solid fa-house w-6"></i>
+                <i class="w-6 fa-solid fa-house"></i>
                 Dashboard
 
                 @if ($active_page == 'dashboard')
@@ -84,8 +84,8 @@
         @endforeach
     </ul>
 
-    <h4 class="mt-4 pb-1 mb-2 border-b border-gray-500 text-lg font-bold ">Management</h4>
-    <ul class="w-full flex flex-col justify-center flex-wrap">
+    <h4 class="pb-1 mt-4 mb-2 text-lg font-bold border-b border-gray-500 ">Management</h4>
+    <ul class="flex flex-col flex-wrap justify-center w-full">
         @foreach ($management_links as $link)
             <li>
                 <a href="/admin-panel/{{ $link['route'] }}"
@@ -102,4 +102,4 @@
     </ul>
 </div>
 
-<script src="js/admin_panel.js"></script>
+<script src="/js/admin_panel.js"></script>

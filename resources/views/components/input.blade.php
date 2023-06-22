@@ -4,7 +4,7 @@
     <label class="block mb-1" for="{{ $name }}">{{ $label }}</label>
 
     <div class="relative z-10 overflow-hidden rounded">
-        <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-xl"type="{{ $type }}" id="{{ $name }}"
+        <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="{{ $type }}" id="{{ $name }}"
             name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name) }}"
             {{ !empty($required) ? 'required' : '' }}>
 

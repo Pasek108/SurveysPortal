@@ -57,5 +57,5 @@
         <div class="text-lg font-bold text-center">Artur Pas 2023</div>
     </footer>
 
-    <script src="{{ asset('storage/js/main_bg.js') }}"></script>
+    <script src="/js/main_bg.js"></script>
 </body>

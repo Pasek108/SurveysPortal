@@ -13,7 +13,7 @@
                 <button>Search</button>
             </form>
 
-            <div class="flex flex-row flex-wrap w-screen gap-5 px-4 mt-5 mb-9 md:w-full md:px-0">
+            <div class="flex flex-row flex-wrap w-full gap-5 px-4 mt-5 mb-9 md:w-full md:px-0">
                 @foreach ($surveys as $survey)
                     <x-survey-card :survey="$survey" />
                 @endforeach

@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Survey extends Model
 {
     use HasFactory;
+
+    public function owner(): HasOne {
+        return $this->HasOne(User::class, 'id', 'owner_id');
+    }
 
     public function tags(): BelongsToMany {
         return $this->BelongsToMany(Tag::class, "surveys_tags", "survey_id", "tag_id");

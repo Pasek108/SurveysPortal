@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuestionType;
 use Illuminate\Http\Request;
 use App\Models\Survey;
+use App\Models\Tag;
+use Illuminate\Support\Facades\Validator;
 
 class SurveyController extends Controller
 {
@@ -22,12 +25,34 @@ class SurveyController extends Controller
 
     public function show(Survey $survey)
     {
-        return view('surveys.survey', ['survey_data' => $survey]);
+        return view('surveys.survey', ['survey' => $survey]);
     }
 
     public function create()
     {
-        return view('surveys.create');
+        return view('surveys.create', ['tags' => Tag::all(), 'types' => QuestionType::all()]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $rules = [
+            'title' => 'required|alpha_dash', //Must be a number and length of value is 8
+        ];
+
+        $validator = Validator::make($data, $rules);
+        if ($validator->passes()) {
+            return response()->json('aaaa');
+        } else {
+            return response()->json('bbbb');
+            dd($validator->errors()->all());
+        }
+
+        $dupa = $request->all();
+        return response()->json($dupa['title']);
+
+        $survey = Survey::all();
+        return to_route('survey.show', ['survey' => $survey->id]);
     }
 
     public function search(Request $request)

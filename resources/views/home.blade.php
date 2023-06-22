@@ -76,7 +76,9 @@
                     Join SurveysPortal today and embark on a journey of knowledge, opinion sharing, and meaningful data generation.
                     Start creating, exploring, and engaging with surveys that matter to you!
                 </p>
-                <a href="/login" class="self-end px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent" type="submit">Sign in</a>
+                <a href="/login" class="self-end px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent" type="submit">
+                    Sign in
+                </a>
             </div>
 
             <div class="self-start mb-10 md:w-1/2 md:mb-0">
@@ -85,7 +87,9 @@
                     Whether you're a researcher looking to gather data, a business seeking customer feedback, or an individual
                     interested in expressing your opinions, SurveysPortal offers a user-friendly platform to meet your survey needs.
                 </p>
-                <a href="/create-survey" class="self-end px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent" type="submit">Create survey</a>
+                <a href="/survey/create" class="self-end px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent" type="submit">
+                    Create survey
+                </a>
             </div>
     </x-section>
 
@@ -114,4 +118,4 @@
 
 @endsection
 
-<script src="{{ asset('storage/js/main_page.js') }}"></script>
+<script src="/js/main_page.js"></script>

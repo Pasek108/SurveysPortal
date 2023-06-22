@@ -1,6 +1,6 @@
 <nav class="p-4 text-lg font-bold text-white bg-blue-700">
     <div class="flex flex-row items-center justify-between max-w-screen-xl mx-auto md:justify-center">
-        <a href="/surveys/search" class="hidden px-2 md:block">
+        <a href="/survey/search" class="hidden px-2 md:block">
             <i class="mr-2 fa-solid fa-magnifying-glass"></i>
             Search for survey
         </a>
@@ -46,16 +46,16 @@
                 Menu
             </button>
 
-            <ul class="absolute right-0 hidden p-2 rounded-md top-7 bg-zinc-800" id="mobile-menu">
+            <ul class="absolute right-0 z-10 hidden p-2 rounded-md top-7 bg-zinc-800" id="mobile-menu">
                 <li class="p-1 whitespace-nowrap">
-                    <a href="/search">
+                    <a href="/survey/search">
                         <i class="mr-2 fa-solid fa-magnifying-glass"></i>
                         Search for survey
                     </a>
                 </li>
                 @auth
                     <li class="p-1 whitespace-nowrap">
-                        <a href="/profile/{{ Auth::user()->name }}">
+                        <a href="/profile/{{ Auth::user()->id }}">
                             <i class="mr-2 fa-solid fa-circle-user"></i>
                             Profile
                         </a>
@@ -83,4 +83,4 @@
     </div>
 </nav>
 
-<script src="{{ asset('storage/js/mobile_navbar.js') }}"></script>
+<script src="/js/mobile_navbar.js"></script>

@@ -6,7 +6,7 @@
 
     <div class="flex flex-col items-center w-full py-16 bg-white align-center">
         <div class="flex flex-col items-center max-w-xl align-center">
-            <img class="absolute text-gray-400 -z-10 w-96" src="/error.png" alt="error_image">
+            <img class="absolute text-gray-400 -z-10 w-96" src="/imgs/error.png" alt="error_image">
 
             <h2 class="font-bold text-red-700 text-7xl">403</h2>
 

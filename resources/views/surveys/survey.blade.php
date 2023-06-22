@@ -1,12 +1,26 @@
-<x-layout title="Survey" show_contact="true">
-    <div class="flex flex-col grow m-2 md:w-1/3 p-4 border border-gray-400 rounded-md bg-white">
-        <h3 class="text-xl font-bold cursor-pointer hover:underline">{{ $survey_data['title'] }}</h3>
+@extends('layouts.layout')
 
-        <p class="w-full h-[4.75rem] line-clamp-3 text-ellipsis text-justify overflow-hidden">
-            {{ $survey_data['description'] }}</p>
+@section('title', 'Survey')
 
-        <p class="text-neutral-500">{{ $survey_data['votes'] }} votes</p>
+@section('content')
 
-        <x-survey-tags :tags="$survey_data->tags" />
+<div class="w-full min-h-screen py-12">
+    <div class="w-full mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
+        <div class="w-full p-4 bg-white shadow sm:p-8 sm:rounded-lg">
+            <div class="relative z-0 w-full preserve-3d">
+                <div class="absolute origin-bottom-left bg-blue-900 -top-1 card-line-back -left-10 -z-10 h-9 w-9"></div>
+                <div class="absolute -top-1 -left-9 w-[calc(100%-3rem)] -skew-x-[15deg] bg-blue-600 -z-10 h-9"></div>
+
+                <h3 class="text-white mb-3 w-[calc(100%-3rem)] overflow-hidden text-xl font-bold cursor-pointer whitespace-nowrap text-ellipsis hover:underline">
+                    {{ $survey['title'] }}
+                </h3>
+
+                <p class="w-full h-[4.75rem] line-clamp-3 text-ellipsis text-justify overflow-hidden">
+                    {{ $survey['description'] }}
+                </p>
+            </div>
+        </div>
     </div>
-</x-layout>
+</div>
+
+@endsection

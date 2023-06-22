@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users_answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('answer_id')->constrained('answers');
-            $table->string('answer', 300);
+            $table->foreignId('question_id')->constrained('questions');
+            $table->string('answer', 500);
             $table->timestamps();
         });
     }

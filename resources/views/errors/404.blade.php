@@ -8,7 +8,7 @@
         <div class="p-4 bg-white shadow sm:rounded-lg">
             <div class="flex flex-col items-center w-full py-16 bg-white align-center">
                 <div class="flex flex-col items-center max-w-xl align-center">
-                    <img class="absolute text-gray-400 w-[26rem]" src="imgs/error.png" alt="error_image">
+                    <img class="absolute text-gray-400 w-[26rem]" src="/imgs/error.png" alt="error_image">
 
                     <h2 class="z-10 font-bold text-red-700 text-7xl">404</h2>
 
