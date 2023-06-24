@@ -12,8 +12,16 @@ class Question extends Model
 {
     use HasFactory;
 
-    public function types(): HasOne {
-        return $this->HasOne(QuestionType::class);
+    protected $fillable = [
+        'question',
+        'description',
+        'type_id',
+    ];
+
+    protected $hidden = ['survey_id', 'created_at', 'updated_at'];
+
+    public function type(): HasOne {
+        return $this->HasOne(QuestionType::class, 'id', 'type_id');
     }
 
     public function survey(): BelongsTo {
@@ -22,5 +30,9 @@ class Question extends Model
 
     public function answers(): HasMany {
         return $this->HasMany(Answer::class);
+    }
+
+    public function userAnswers(): HasMany {
+        return $this->HasMany(UserAnswer::class);
     }
 }

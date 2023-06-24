@@ -1,13 +1,13 @@
 @extends('layouts.layout')
 
-@section('title', 'Create survey')
+@section('title', 'Survey creator')
 
 @section('content')
 
     <div class="flex flex-col items-center justify-start min-h-screen">
         <section class="w-full p-4 py-10">
             <div class="flex flex-col w-full max-w-screen-xl mx-auto md:w-2/3">
-                <form method="POST" action="/auth" id="create-survey" class="overflow-hidden text-lg border border-gray-400 rounded-md group active-1 bg-slate-100">
+                <div id="create-survey" class="overflow-hidden text-lg border border-gray-400 rounded-md group active-1 bg-slate-100">
                     <!-- --------------- section buttons --------------- -->
                     <div class="flex" id="sections">
                         <button type="button" class="grow p-2 border-r group-[:not(.active-1)]:bg-blue-600 group-[:not(.active-1)]:text-white text-center">
@@ -49,7 +49,7 @@
 
                         <div class="mb-3">
                             <label class="block mb-1" for="description">Description</label>
-                            <textarea class="px-4 py-1.5 w-full border rounded border-gray-400" id="description" name="description" placeholder="Survey description" rows="5"></textarea>
+                            <textarea class="px-4 py-1.5 w-full border text-lg rounded border-gray-400" id="description" name="description" placeholder="Survey description" rows="5"></textarea>
                         </div>
 
                         <div class="flex justify-end space-x-3">
@@ -113,75 +113,92 @@
                             </button>
                         </div>
                     </section>
-                </form>
+                </div>
             </div>
         </section>
     </div>
 
     <!-- --------------- new question modal --------------- -->
     <section id="question-modal" class="absolute top-0 left-0 z-10 flex flex-row items-start justify-start w-full h-full bg-black bg-opacity-50" style="display: none">
-        <div class="sticky top-0 w-full max-h-screen min-h-screen p-4 py-10 overflow-y-scroll">
-        <div class="flex flex-col w-full max-w-screen-xl p-8 mx-auto overflow-hidden text-lg border border-gray-400 rounded-md md:w-2/3 bg-slate-100">
-            <h3 class="mb-2 text-2xl font-bold text-center">Add new question</h3>
+        <div class="sticky top-0 w-full max-h-screen p-4 py-10 overflow-y-scroll">
+            <div class="flex flex-col w-full max-w-screen-xl p-8 mx-auto overflow-hidden text-lg border border-gray-400 rounded-md md:w-2/3 bg-slate-100">
+                <h3 class="mb-2 text-2xl font-bold text-center">Add new question</h3>
 
-            <x-input label="Question" type="text" name="question" placeholder="Question" />
+                <x-input label="Question" type="text" name="question" placeholder="Question" />
 
-            <div class="mb-3">
-                <label class="block mb-1" for="description">Description</label>
-                <textarea class="px-4 py-1.5 w-full border rounded border-gray-400" id="description" name="description" placeholder="Question description" rows="5"></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label class="block mb-1" for="type">Type</label>
-                <select name="type" id="type" class="px-4 py-1.5 w-full border border-gray-400 rounded text-lg">
-                    @foreach ($types as $type)
-                        <option value="{{ $type->name }}">{{ $type->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div id="range" class="flex flex-row items-center justify-between gap-4 mb-6" style="display: none">
-                <div class="flex flex-row items-center justify-between w-1/2 gap-2">
-                    <label class="inline-block mb-1" for="from">From</label>
-                    <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="number" id="from" name="from" value="0">
-                </div>
-                <div class="flex flex-row items-center justify-between w-1/2 gap-2">
-                    <label class="inline-block mb-1" for="to">To</label>
-                    <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="number" id="to" name="to" value="10">
-                </div>
-            </div>
-
-            <div id="choice" class="mb-6" style="display: none">
-                <div class="flex flex-row items-center justify-between w-full gap-2 mb-2 choice1">
-                    <label class="inline-block mb-1" for="a1">1.</label>
-                    <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="text" id="a1" name="a1" placeholder="Choice 1">
-                    <div class="w-12 h-10 "></div>
-                </div>
-                <div class="flex flex-row items-center justify-between w-full gap-2 mb-2 choice2">
-                    <label class="inline-block mb-1" for="a2">2.</label>
-                    <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="text" id="a2" name="a2" placeholder="Choice 2">
-                    <div class="w-12 h-10"></div>
+                <div class="mb-3">
+                    <label class="block mb-1" for="description">Description</label>
+                    <textarea class="px-4 py-1.5 text-lg w-full border rounded border-gray-400" id="description" name="description" placeholder="Question description" rows="5"></textarea>
                 </div>
 
-                <button id="add-choice" type="button" class="w-1/2 px-4 py-1.5 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent">
-                    <i class="fa-solid fa-plus"></i> Add choice
-                </button>
-            </div>
+                <div class="mb-3">
+                    <label class="block mb-1" for="type">Type</label>
+                    <select name="type" id="type" class="px-4 py-1.5 w-full border border-gray-400 rounded text-lg">
+                        @foreach ($types as $type)
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="flex flex-row items-center justify-between gap-4">
-                <button id="cancel" type="submit" class="w-1/2 px-4 py-2 font-semibold text-red-700 bg-transparent border border-red-500 rounded hover:bg-red-700 hover:text-white hover:border-transparent">
-                    <i class="fa-solid fa-xmark"></i> Cancel
-                </button>
+                <div id="range" class="flex flex-row items-center justify-between gap-4 mb-6" style="display: none">
+                    <div class="flex flex-row items-center justify-between w-1/2 gap-2">
+                        <label class="inline-block mb-1" for="from">From</label>
+                        <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="number" id="from" name="from" value="0">
+                    </div>
+                    <div class="flex flex-row items-center justify-between w-1/2 gap-2">
+                        <label class="inline-block mb-1" for="to">To</label>
+                        <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="number" id="to" name="to" value="10">
+                    </div>
+                </div>
 
-                <button id="create" type="submit" class="w-1/2 px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent">
-                    <i class="fa-solid fa-check"></i> Create
-                </button>
+                <div id="choice" class="mb-6" style="display: none">
+                    <div class="flex flex-row items-center justify-between w-full gap-2 mb-2 choice1">
+                        <label class="inline-block mb-1" for="a1">1.</label>
+                        <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="text" id="a1" name="a1" placeholder="Choice 1">
+                        <div class="w-12 h-10 "></div>
+                    </div>
+                    <div class="flex flex-row items-center justify-between w-full gap-2 mb-2 choice2">
+                        <label class="inline-block mb-1" for="a2">2.</label>
+                        <input class="px-4 py-1.5 w-full border rounded border-gray-400 text-lg" type="text" id="a2" name="a2" placeholder="Choice 2">
+                        <div class="w-12 h-10"></div>
+                    </div>
+
+                    <button id="add-choice" type="button" class="w-1/2 px-4 py-1.5 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent">
+                        <i class="fa-solid fa-plus"></i> Add choice
+                    </button>
+                </div>
+
+                <div class="flex flex-row items-center justify-between gap-4">
+                    <button id="cancel" type="submit" class="w-1/2 px-4 py-2 font-semibold text-red-700 bg-transparent border border-red-500 rounded hover:bg-red-700 hover:text-white hover:border-transparent">
+                        <i class="fa-solid fa-xmark"></i> Cancel
+                    </button>
+
+                    <button id="create" type="submit" class="w-1/2 px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent">
+                        <i class="fa-solid fa-check"></i> Create
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     </section>
 
+    <section id="messages" class="fixed bottom-0 right-0 z-50 flex flex-col-reverse items-center justify-center w-full max-w-full gap-1 p-4 md:w-1/2"></section>
 
 @endsection
 
-<script src="/js/create_survey.js"></script>
+<script src="/js/survey_creator/Messages.js"></script>
+<script src="/js/survey_creator/ChoiceType.js"></script>
+<script src="/js/survey_creator/RangeType.js"></script>
+<script src="/js/survey_creator/Question.js"></script>
+<script src="/js/survey_creator/QuestionModal.js"></script>
+<script src="/js/survey_creator/SurveyTags.js"></script>
+<script src="/js/survey_creator/SurveyCreator.js"></script>
+
+@if (!empty($survey_data) && isset($survey_data))
+    <script>
+        const survey_data = {!! json_encode($survey_data, JSON_HEX_TAG) !!};
+        const link = "/survey/" + {{ $survey_id }};
+    </script>
+    <script src="/js/edit_survey.js"></script>
+@else
+    <script src="/js/create_survey.js"></script>
+@endif

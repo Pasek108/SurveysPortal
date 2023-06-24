@@ -12,6 +12,8 @@ class Survey extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['id', 'owner_id', 'edit_password', 'access_password', 'created_at', 'updated_at'];
+
     public function owner(): HasOne {
         return $this->HasOne(User::class, 'id', 'owner_id');
     }
@@ -44,5 +46,30 @@ class Survey extends Model
                 ->where('description', 'like', '%' . request('search') . '%');
             //->where('tags.name', 'like', '%' . request('search') . '%');
         }
+    }
+
+    public function getRating($id) {
+        $survey = Survey::where("id", $id)->first();
+        $ratings = $survey->ratings;
+
+        $avg_rating = 0;
+        foreach ($ratings as $rating) $avg_rating += $rating['rating'];
+        $avg_rating /= (count($ratings) > 0 ? count($ratings) : 1);
+
+        return number_format((float)round($avg_rating, 2), 2, '.', '');
+    }
+
+    public function countRespondents($id) {
+        $survey = Survey::where("id", $id)->first();
+
+        $respondents = 0;
+        if ($survey->questions[0] ?? false) $respondents = count($survey->questions[0]->userAnswers);
+
+        return $respondents;
+    }
+
+    public function countQuestions($id) {
+        $survey = Survey::where("id", $id)->first();
+        return count($survey->questions);
     }
 }

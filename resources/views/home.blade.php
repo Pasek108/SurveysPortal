@@ -64,7 +64,7 @@
                 @endforeach
             </div>
 
-            <a href="/search" class="text-xl text-blue-600 hover:underline">Click here to see more...</a>
+            <a href="survey/search" class="text-xl text-blue-600 hover:underline">Click here to see more...</a>
         </div>
     </x-section>
 

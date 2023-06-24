@@ -19,7 +19,9 @@ return new class extends Migration
             $table->timestamp('start_date')->nullable()->default(null);
             $table->timestamp('end_date')->nullable()->default(null);
             $table->string('title', 300);
-            $table->string('description', 1200);
+            $table->string('description', 1200)->nullable();
+            $table->string('end_message', 500)->nullable();
+            $table->boolean('allow_not_logged');
             $table->timestamps();
         });
     }

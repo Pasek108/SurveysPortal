@@ -9,4 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Rating extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'survey_id',
+        'rating',
+    ];
 }

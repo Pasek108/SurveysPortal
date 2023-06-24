@@ -14,4 +14,8 @@ class QuestionType extends Model
     public function survey(): BelongsToMany {
         return $this->BelongsToMany(Question::class);
     }
+
+    public function question(): BelongsTo {
+        return $this->BelongsTo(Question::class);
+    }
 }

@@ -25,6 +25,8 @@ class SurveyFactory extends Factory
             'end_date' => $this->faker->randomElement([null, date('Y-m-d H:i:s', time())]),
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(5),
+            'end_message' => $this->faker->paragraph(1),
+            'allow_not_logged' => $this->faker->boolean(),
         ];
     }
 }

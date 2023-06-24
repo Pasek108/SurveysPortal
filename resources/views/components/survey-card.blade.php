@@ -6,22 +6,22 @@
     </a>
 
     <p class="w-full h-[4.75rem] line-clamp-3 text-ellipsis text-justify overflow-hidden">
-        {{ $survey['description'] }}
+        {{ $survey['description'] == '' ? 'No description' : $survey['description'] }}
     </p>
 
     <div class="flex items-center justify-between mt-2">
         <div>
-            {{ $survey->respondents }} respondents
+            {{ $survey->countRespondents($survey->id) }} respondents
         </div>
 
         <div>
-            {{ $survey->users_ratings }} <i class="fa-solid fa-star text-amber-400"></i>
+            {{ $survey->getRating($survey->id) }} <i class="fa-solid fa-star text-amber-400"></i>
         </div>
     </div>
 
     <div class="flex flex-row flex-wrap mt-4">
         @foreach ($survey->tags as $tag)
-            <div class="p-0.5 mr-1 mb-1 px-3 rounded-3xl bg-black text-white">{{ $tag['name'] }}</div>
+            <a href="/survey/search/" class="p-0.5 mr-1 mb-1 px-3 rounded-xl bg-blue-900 text-white cursor-pointer hover:underline">#{{ $tag['name'] }}</a>
         @endforeach
     </div>
 

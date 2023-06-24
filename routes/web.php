@@ -23,50 +23,31 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth', 'verified']);
-
 /* ----------------------- surveys ----------------------- */
 Route::controller(SurveyController::class)->group(function () {
-    Route::get('/',                           'top6');
+    Route::get('/',                          'top6');
     Route::get('/survey/search',             'search');
     Route::get('/survey/create',             'create')->middleware('auth');
     Route::post('/survey/store',             'store')->middleware('auth');
-    Route::get('/survey/{survey:id}',        'show')->where('id', '[0-9]+');
-    Route::get('/survey/{survey:id}/edit',   'edit');
-    Route::put('/survey/{survey:id}',        'update');
+    Route::get('/survey/{survey:id}/fill',   'fill')->where('id', '[0-9]+');
+    Route::post('/survey/{survey:id}/send',  'send')->where('id', '[0-9]+');
+    Route::get('/survey/{survey:id}',        'show')->where('id', '[0-9]+')->name("survey.show");
+    Route::get('/survey/{survey:id}/edit',   'edit')->where('id', '[0-9]+')->middleware('auth');
+    Route::put('/survey/{survey:id}',        'update')->where('id', '[0-9]+')->middleware('auth');
+    Route::post('/survey/{survey:id}/stats', 'stats')->where('id', '[0-9]+')->middleware('auth');
 });
 
 /* ----------------------- admin panel ----------------------- */
 Route::middleware('auth')->group(function () {
-    Route::get('/admin-panel',          function () {
-        return view('admin-panel.dashboard');
-    });
-    Route::get('/admin-panel/messages', function () {
-        return view('admin-panel.messages');
-    });
-    Route::get('/admin-panel/reports',  function () {
-        return view('admin-panel.reports');
-    });
-    Route::get('/admin-panel/contact',  function () {
-        return view('admin-panel.contact');
-    });
-    Route::get('/admin-panel/admins',   function () {
-        return view('admin-panel.admins');
-    });
-    Route::get('/admin-panel/users',    function () {
-        return view('admin-panel.users');
-    });
-    Route::get('/admin-panel/bans',     function () {
-        return view('admin-panel.bans');
-    });
-    Route::get('/admin-panel/surveys',  function () {
-        return view('admin-panel.surveys');
-    });
-    Route::get('/admin-panel/tags',     function () {
-        return view('admin-panel.tags');
-    });
+    Route::get('/admin-panel',          function () { return view('admin-panel.dashboard'); });
+    Route::get('/admin-panel/messages', function () { return view('admin-panel.messages'); });
+    Route::get('/admin-panel/reports',  function () { return view('admin-panel.reports'); });
+    Route::get('/admin-panel/contact',  function () { return view('admin-panel.contact'); });
+    Route::get('/admin-panel/admins',   function () { return view('admin-panel.admins'); });
+    Route::get('/admin-panel/users',    function () { return view('admin-panel.users'); });
+    Route::get('/admin-panel/bans',     function () { return view('admin-panel.bans'); });
+    Route::get('/admin-panel/surveys',  function () { return view('admin-panel.surveys'); });
+    Route::get('/admin-panel/tags',     function () { return view('admin-panel.tags'); });
 });
 
 /* ----------------------- profile ----------------------- */
