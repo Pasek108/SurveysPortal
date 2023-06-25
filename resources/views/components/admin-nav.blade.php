@@ -15,11 +15,6 @@
     ];
     $management_links = [
         [
-            'route' => 'admins',
-            'name' => 'Admins',
-            'icon' => 'fa-user-secret',
-        ],
-        [
             'route' => 'users',
             'name' => 'Users',
             'icon' => 'fa-user',

@@ -6,7 +6,7 @@
     font-family: "Hanken Grotesk", sans-serif;
 }
 
-*::-webkit-scrollbar {
+*:not(.scroll-visible)::-webkit-scrollbar {
     width: 0;
 }
 

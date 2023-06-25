@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveyController;
-
+use App\Models\Survey;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -25,16 +25,16 @@ use Illuminate\Support\Str;
 
 /* ----------------------- surveys ----------------------- */
 Route::controller(SurveyController::class)->group(function () {
-    Route::get('/',                          'top6');
-    Route::get('/survey/search',             'search');
-    Route::get('/survey/create',             'create')->middleware('auth');
-    Route::post('/survey/store',             'store')->middleware('auth');
-    Route::get('/survey/{survey:id}/fill',   'fill')->where('id', '[0-9]+');
-    Route::post('/survey/{survey:id}/send',  'send')->where('id', '[0-9]+');
-    Route::get('/survey/{survey:id}',        'show')->where('id', '[0-9]+')->name("survey.show");
-    Route::get('/survey/{survey:id}/edit',   'edit')->where('id', '[0-9]+')->middleware('auth');
-    Route::put('/survey/{survey:id}',        'update')->where('id', '[0-9]+')->middleware('auth');
-    Route::post('/survey/{survey:id}/stats', 'stats')->where('id', '[0-9]+')->middleware('auth');
+    Route::get ('/',                          'top6');
+    Route::get ('/survey/search',             'search');
+    Route::get ('/survey/create',             'create')->middleware('auth');
+    Route::post('/survey/store',              'store')->middleware('auth');
+    Route::get ('/survey/{survey:id}/fill',   'fill')->where('id', '[0-9]+');
+    Route::post('/survey/{survey:id}/send',   'send')->where('id', '[0-9]+');
+    Route::get ('/survey/{survey:id}',        'show')->where('id', '[0-9]+')->name("survey.show");
+    Route::get ('/survey/{survey:id}/edit',   'edit')->where('id', '[0-9]+')->middleware('auth');
+    Route::put ('/survey/{survey:id}',        'update')->where('id', '[0-9]+')->middleware('auth');
+    Route::post('/survey/{survey:id}/stats',  'stats')->where('id', '[0-9]+')->middleware('auth');
 });
 
 /* ----------------------- admin panel ----------------------- */
@@ -44,9 +44,35 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin-panel/reports',  function () { return view('admin-panel.reports'); });
     Route::get('/admin-panel/contact',  function () { return view('admin-panel.contact'); });
     Route::get('/admin-panel/admins',   function () { return view('admin-panel.admins'); });
-    Route::get('/admin-panel/users',    function () { return view('admin-panel.users'); });
+    Route::get('/admin-panel/users',    function (Request $request) {
+        $sort_by = (empty($request->get('sort'))) ? 'id' : $request->get('sort');
+        $order = (empty($request->get('order'))) ? 'ASC' : $request->get('order');
+        $search = $request->get('search');
+
+        if ($sort_by == 'role') $sort_by = 'role_id';
+
+        $users = User::where('name', 'LIKE', '%'.$search.'%')->orderBy($sort_by, $order)->paginate(10, ['*'], 'users_page');
+
+        $check_user = User::with('surveys')->find(5);
+        $check_user_surveys = $check_user->surveys()->paginate(5, ['*'], 'check_user_surveys_page');
+
+        return view('admin-panel.users', ['users' => $users, 'check_user' => $check_user, 'check_user_surveys' => $check_user_surveys]);
+    });
     Route::get('/admin-panel/bans',     function () { return view('admin-panel.bans'); });
-    Route::get('/admin-panel/surveys',  function () { return view('admin-panel.surveys'); });
+    Route::get('/admin-panel/surveys',  function (Request $request) {
+        $sort_by = (empty($request->get('sort'))) ? 'id' : $request->get('sort');
+        $order = (empty($request->get('order'))) ? 'ASC' : $request->get('order');
+        $search = $request->get('search');
+
+        if ($sort_by == 'role') $sort_by = 'role_id';
+
+        $surveys = Survey::where('title', 'LIKE', '%'.$search.'%')->orderBy($sort_by, $order)->paginate(10, ['*'], 'surveys_page');
+
+        $check_survey = Survey::with('questions')->find(21);
+        $check_survey_questions = $check_survey->questions()->paginate(5, ['*'], 'check_survey_questions_page');
+
+        return view('admin-panel.surveys', ['surveys' => $surveys, 'check_survey' => $check_survey, 'check_survey_questions' => $check_survey_questions]);
+    });
     Route::get('/admin-panel/tags',     function () { return view('admin-panel.tags'); });
 });
 

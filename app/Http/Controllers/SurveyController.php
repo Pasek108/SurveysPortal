@@ -159,7 +159,6 @@ class SurveyController extends Controller
             /* ----------- add questions ----------- */
             $existing_questions = $survey_model->questions()->get();
             foreach ($existing_questions as $question) {
-                //return ["huj" => $question->id];
                 DB::table('answers')->where('question_id', $question->id)->delete();
                 DB::table('users_answers')->where('question_id', $question->id)->delete();
                 DB::table('questions')->where('survey_id', $survey_model->id)->delete();
