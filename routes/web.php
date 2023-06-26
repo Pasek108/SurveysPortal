@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveyController;
 use App\Models\Survey;
@@ -38,42 +39,23 @@ Route::controller(SurveyController::class)->group(function () {
 });
 
 /* ----------------------- admin panel ----------------------- */
-Route::middleware('auth')->group(function () {
-    Route::get('/admin-panel',          function () { return view('admin-panel.dashboard'); });
-    Route::get('/admin-panel/messages', function () { return view('admin-panel.messages'); });
-    Route::get('/admin-panel/reports',  function () { return view('admin-panel.reports'); });
-    Route::get('/admin-panel/contact',  function () { return view('admin-panel.contact'); });
-    Route::get('/admin-panel/admins',   function () { return view('admin-panel.admins'); });
-    Route::get('/admin-panel/users',    function (Request $request) {
-        $sort_by = (empty($request->get('sort'))) ? 'id' : $request->get('sort');
-        $order = (empty($request->get('order'))) ? 'ASC' : $request->get('order');
-        $search = $request->get('search');
+Route::controller(AdminPanelController::class)->group(function () {
+    Route::get('/admin-panel',                                      'dashboard')->middleware('auth');
 
-        if ($sort_by == 'role') $sort_by = 'role_id';
+    Route::get('/admin-panel/reports',                              'reports')->middleware('auth');
+    Route::post('/admin-panel/reports/mark-as-read/{report:id}',    'markReportAsRead')->where(['id' => '[0-9]+'])->middleware('auth');
+    Route::post('/admin-panel/reports/delete/{report:id}',          'deleteReport')->where(['id' => '[0-9]+'])->middleware('auth');
 
-        $users = User::where('name', 'LIKE', '%'.$search.'%')->orderBy($sort_by, $order)->paginate(10, ['*'], 'users_page');
+    Route::get('/admin-panel/contact',                              'contact')->middleware('auth');
+    Route::post('/admin-panel/contact/mark-as-read/{contact:id}',   'markContactAsRead')->where(['id' => '[0-9]+'])->middleware('auth');
+    Route::post('/admin-panel/contact/delete/{contact:id}',         'deleteContact')->where(['id' => '[0-9]+'])->middleware('auth');
 
-        $check_user = User::with('surveys')->find(5);
-        $check_user_surveys = $check_user->surveys()->paginate(5, ['*'], 'check_user_surveys_page');
-
-        return view('admin-panel.users', ['users' => $users, 'check_user' => $check_user, 'check_user_surveys' => $check_user_surveys]);
-    });
-    Route::get('/admin-panel/bans',     function () { return view('admin-panel.bans'); });
-    Route::get('/admin-panel/surveys',  function (Request $request) {
-        $sort_by = (empty($request->get('sort'))) ? 'id' : $request->get('sort');
-        $order = (empty($request->get('order'))) ? 'ASC' : $request->get('order');
-        $search = $request->get('search');
-
-        if ($sort_by == 'role') $sort_by = 'role_id';
-
-        $surveys = Survey::where('title', 'LIKE', '%'.$search.'%')->orderBy($sort_by, $order)->paginate(10, ['*'], 'surveys_page');
-
-        $check_survey = Survey::with('questions')->find(21);
-        $check_survey_questions = $check_survey->questions()->paginate(5, ['*'], 'check_survey_questions_page');
-
-        return view('admin-panel.surveys', ['surveys' => $surveys, 'check_survey' => $check_survey, 'check_survey_questions' => $check_survey_questions]);
-    });
-    Route::get('/admin-panel/tags',     function () { return view('admin-panel.tags'); });
+    Route::get('/admin-panel/users',                                'users')->middleware('auth');
+    Route::get('/admin-panel/bans',                                 'bans')->middleware('auth');
+    Route::get('/admin-panel/surveys',                              'surveys')->middleware('auth');
+    Route::get('/admin-panel/questions',                            'questions')->middleware('auth');
+    Route::get('/admin-panel/answers',                              'answers')->middleware('auth');
+    Route::get('/admin-panel/tags',                                 'tags')->middleware('auth');
 });
 
 /* ----------------------- profile ----------------------- */

@@ -55,6 +55,9 @@ class ChoiceType {
             this.container.querySelector(".choice1"),
             this.container.querySelector(".choice2"),
         ];
+
+        this.choices[0].querySelector("input").value = "";
+        this.choices[1].querySelector("input").value = "";
     }
 
     createChoice() {

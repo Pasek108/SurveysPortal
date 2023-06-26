@@ -1,20 +1,14 @@
-@php
-    $notifications = [
-        'messages' => 0,
-        'reports' => 23,
-        'contact' => 167,
-    ];
-@endphp
+@php $notifications = ['reports' => $reports_count, 'contact' => $contact_count]; @endphp
 
 @extends('layouts.layout')
 
-@section('title', 'Admin dashboard')
+@section('title', 'Admin panel - users')
 
 @section('content')
     <section class="w-full">
         <div class="relative flex flex-col items-start max-w-screen-xl mx-auto md:flex-row">
             <div class="sticky top-0 z-10 w-60 md:w-1/3 lg:w-1/4">
-                <x-admin-nav active_page="admins" :notifications="$notifications" />
+                <x-admin-nav active_page="users" :notifications="$notifications" />
             </div>
 
             <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h">
@@ -30,6 +24,7 @@
                             <input name="search" type="text" value="{{ request()->search }}" placeholder="Search by name..." class="px-3 py-1.5 grow border rounded-md border-gray-600 text-black">
                             <input name="sort" type="text" value="{{ request()->sort }}" hidden>
                             <input name="order" type="text" value="{{ request()->order }}" hidden>
+                            <input name="user_id" type="text" value="{{ request()->user_id }}" hidden>
                             <button type="submit" class="absolute  h-full right-0 px-3 py-1.5 rounded-tr-md rounded-br-md bg-blue-700 border-gray-600 hover:bg-blue-800 text-white font-bold">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
@@ -47,15 +42,15 @@
                                     <th class="w-1 px-4 py-2 whitespace-nowrap">
                                         id
                                         @if ((empty(request()->sort) || request()->sort == 'id') && request()->order == 'DESC')
-                                            <a href="{{ url()->current() }}?sort=id&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=id&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-up-wide-short"></i>
                                             </a>
-                                        @elseif ((empty(request()->sort) || request()->sort == 'id') && (empty(request()->order) || request()->order == 'ASC'))
-                                            <a href="{{ url()->current() }}?sort=id&order=DESC&search={{ request()->search }}">
+                                        @elseif ((empty(request()->sort) || request()->sort == 'id') && request()->order == 'ASC')
+                                            <a href="{{ url()->current() }}?sort=id&order=DESC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-down-short-wide"></i>
                                             </a>
                                         @else
-                                            <a href="{{ url()->current() }}?sort=id&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=id&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-sort"></i>
                                             </a>
                                         @endif
@@ -63,15 +58,15 @@
                                     <th class="w-1 px-4 py-2 whitespace-nowrap">
                                         role
                                         @if ((empty(request()->sort) || request()->sort == 'role') && request()->order == 'DESC')
-                                            <a href="{{ url()->current() }}?sort=role&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=role&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-up-wide-short"></i>
                                             </a>
-                                        @elseif ((empty(request()->sort) || request()->sort == 'role') && (empty(request()->order) || request()->order == 'ASC'))
-                                            <a href="{{ url()->current() }}?sort=role&order=DESC&search={{ request()->search }}">
+                                        @elseif ((empty(request()->sort) || request()->sort == 'role') && request()->order == 'ASC')
+                                            <a href="{{ url()->current() }}?sort=role&order=DESC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-down-short-wide"></i>
                                             </a>
                                         @else
-                                            <a href="{{ url()->current() }}?sort=role&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=role&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-sort"></i>
                                             </a>
                                         @endif
@@ -79,15 +74,15 @@
                                     <th class="px-4 py-2 whitespace-nowrap">
                                         name
                                         @if ((empty(request()->sort) || request()->sort == 'name') && request()->order == 'DESC')
-                                            <a href="{{ url()->current() }}?sort=name&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=name&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-up-wide-short"></i>
                                             </a>
-                                        @elseif ((empty(request()->sort) || request()->sort == 'name') && (empty(request()->order) || request()->order == 'ASC'))
-                                            <a href="{{ url()->current() }}?sort=name&order=DESC&search={{ request()->search }}">
+                                        @elseif ((empty(request()->sort) || request()->sort == 'name') && request()->order == 'ASC')
+                                            <a href="{{ url()->current() }}?sort=name&order=DESC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-down-short-wide"></i>
                                             </a>
                                         @else
-                                            <a href="{{ url()->current() }}?sort=name&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=name&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-sort"></i>
                                             </a>
                                         @endif
@@ -95,15 +90,15 @@
                                     <th class="px-4 py-2 whitespace-nowrap">
                                         email
                                         @if ((empty(request()->sort) || request()->sort == 'email') && request()->order == 'DESC')
-                                            <a href="{{ url()->current() }}?sort=email&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=email&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-up-wide-short"></i>
                                             </a>
-                                        @elseif ((empty(request()->sort) || request()->sort == 'email') && (empty(request()->order) || request()->order == 'ASC'))
-                                            <a href="{{ url()->current() }}?sort=email&order=DESC&search={{ request()->search }}">
+                                        @elseif ((empty(request()->sort) || request()->sort == 'email') && request()->order == 'ASC')
+                                            <a href="{{ url()->current() }}?sort=email&order=DESC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-down-short-wide"></i>
                                             </a>
                                         @else
-                                            <a href="{{ url()->current() }}?sort=email&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=email&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-sort"></i>
                                             </a>
                                         @endif
@@ -111,15 +106,15 @@
                                     <th class="px-4 py-2 whitespace-nowrap">
                                         email_verified_at
                                         @if ((empty(request()->sort) || request()->sort == 'email_verified_at') && request()->order == 'DESC')
-                                            <a href="{{ url()->current() }}?sort=email_verified_at&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=email_verified_at&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-up-wide-short"></i>
                                             </a>
-                                        @elseif ((empty(request()->sort) || request()->sort == 'email_verified_at') && (empty(request()->order) || request()->order == 'ASC'))
-                                            <a href="{{ url()->current() }}?sort=email_verified_at&order=DESC&search={{ request()->search }}">
+                                        @elseif ((empty(request()->sort) || request()->sort == 'email_verified_at') && request()->order == 'ASC')
+                                            <a href="{{ url()->current() }}?sort=email_verified_at&order=DESC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-arrow-down-short-wide"></i>
                                             </a>
                                         @else
-                                            <a href="{{ url()->current() }}?sort=email_verified_at&order=ASC&search={{ request()->search }}">
+                                            <a href="{{ url()->current() }}?sort=email_verified_at&order=ASC&search={{ request()->search }}&user_id={{ request()->user_id }}">
                                                 <i class="ml-1 text-sm cursor-pointer fa-solid fa-sort"></i>
                                             </a>
                                         @endif
@@ -156,10 +151,10 @@
                                         <td class="px-4 py-2">{{ $user->email }}</td>
                                         <td class="px-4 py-2">{{ $user->email_verified_at }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap">
-                                            <button class="px-1.5 py-0.5 font-bold text-white bg-blue-700 rounded-md hover:bg-blue-800 whitespace-nowrap">
+                                            <a href="{{ url()->current() }}?sort={{ request()->sort }}&order={{ request()->order }}&search={{ request()->search }}&user_id={{ $user->id }}&check_user_surveys_page={{ $check_user_surveys->currentPage() }}&users_page={{ $users->currentPage() }}" class="px-1.5 py-0.5 font-bold text-white bg-blue-700 rounded-md hover:bg-blue-800 whitespace-nowrap">
                                                 <i class="fa-regular fa-eye"></i>
                                                 Check user
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -167,7 +162,7 @@
                         </table>
                     </div>
 
-                    <div class="w-full mt-3">{{ $users->appends(['check_user_surveys_page' => $check_user_surveys->currentPage()])->onEachSide(1)->links() }}</div>
+                    <div class="w-full mt-3">{{ $users->appends(['sort' => request()->sort, 'order' => request()->order, 'search' => request()->search, 'user_id' => $user->id, 'check_user_surveys_page' => $check_user_surveys->currentPage()])->onEachSide(1)->links() }}</div>
                 </div>
 
                 <div class="mt-10" id="user-details">
@@ -194,6 +189,15 @@
                                 </div>
                                 <div class="">
                                     <span class="font-bold ">Created at:</span> {{ empty($check_user->created_at) ? 'n/a' : $check_user->created_at }}
+                                </div>
+                                <div class="">
+                                    <span class="font-bold ">Banned:</span> {{ $check_user->bans()->count() }} times
+                                </div>
+                                <div class="">
+                                    <span class="font-bold ">Created surveys:</span> {{ $check_user->surveys->count() }}
+                                </div>
+                                <div class="">
+                                    <span class="font-bold ">Surveys taken:</span> {{ $surveys_taken }}
                                 </div>
                             </div>
 
@@ -230,7 +234,7 @@
                                 </div>
                             @endforeach
 
-                            <div class="w-full mt-3">{{ $check_user_surveys->appends(['users_page' => $users->currentPage()])->onEachSide(1)->links() }}</div>
+                            <div class="w-full mt-3">{{ $check_user_surveys->appends(['sort' => request()->sort, 'order' => request()->order, 'search' => request()->search, 'user_id' => $user->id, 'users_page' => $users->currentPage()])->onEachSide(1)->links() }}</div>
                         </div>
 
                     </div>

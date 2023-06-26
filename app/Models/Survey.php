@@ -26,6 +26,10 @@ class Survey extends Model
         return $this->HasMany(Question::class);
     }
 
+    public function reports(): HasMany {
+        return $this->HasMany(Report::class);
+    }
+
     public function ratings(): HasMany {
         return $this->HasMany(Rating::class);
     }

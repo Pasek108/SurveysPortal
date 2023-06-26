@@ -1,14 +1,8 @@
-@php
-    $notifications = [
-        'messages' => 0,
-        'reports' => 23,
-        'contact' => 167,
-    ];
-@endphp
+@php $notifications = ['reports' => $reports_count, 'contact' => $contact_count]; @endphp
 
 @extends('layouts.layout')
 
-@section('title', 'Admin dashboard')
+@section('title', 'Admin panel - dashboard')
 
 @section('content')
 

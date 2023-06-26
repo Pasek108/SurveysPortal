@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email', 50)->nullable();
             $table->string('message', 2000);
+            $table->boolean('read');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,14 @@ class ContactSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('contact')->insert(['email' => 'contact.mail.com', 'message' => 'Contact message']);
+        $faker = Factory::create();
+
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('contact')->insert([
+                'email' => $faker->email(),
+                'message' => $faker->paragraph(4),
+                'read' => $faker->boolean()
+            ]);
+        }
     }
 }

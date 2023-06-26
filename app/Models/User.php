@@ -52,4 +52,12 @@ class User extends Authenticatable //implements MustVerifyEmail, CanResetPasswor
     public function role():HasOne {
         return $this->HasOne(Role::class, 'id', 'role_id');
     }
+
+    public function bans(): HasMany {
+        return $this->HasMany(Ban::class, 'user_id', 'id');
+    }
+
+    public function reports(): HasMany {
+        return $this->HasMany(Survey::class, 'user_id', 'id');
+    }
 }
