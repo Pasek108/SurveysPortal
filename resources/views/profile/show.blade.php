@@ -43,7 +43,7 @@
                         </a>
                     </div>
 
-                    <div class="flex flex-row flex-wrap w-full gap-5 px-4 mb-9 md:w-full md:px-0">
+                    <div class="flex flex-row flex-wrap w-full gap-5 px-4 mt-2 mb-9 md:w-full md:px-0">
                         @foreach ($user->surveys as $survey)
                             <x-survey-card :survey="$survey" />
                         @endforeach

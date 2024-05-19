@@ -11,14 +11,12 @@
                 <x-admin-nav active_page="reports" :notifications="$notifications" />
             </div>
 
-            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h">
+            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h-screen">
                 <h2 class="mt-10 text-3xl font-bold text-center md:mt-0">Reports</h2>
 
                 <div class="mt-10">
                     <div class="w-full p-4 mx-auto text-lg rounded-md bg-slate-100">
-                        <div class="flex flex-wrap items-center justify-between mb-2">
-                            <h3 class="text-2xl font-bold">Users table</h3>
-                        </div>
+
 
                         <div class="flex flex-col items-start justify-start w-full gap-3">
                             @foreach ($reports as $report)
@@ -44,7 +42,8 @@
                                             </form>
                                         @endif
 
-                                        <form method="POST" action="/admin-panel/reports/delete/{{ $report->id }}">
+                                        <form method="POST" action="/admin-panel/reports/{{ $report->id }}">
+                                            @method('delete')
                                             @csrf
                                             <button type="submit" class="w-full px-3 py-1 font-bold text-white bg-red-700 rounded-md hover:bg-red-800 whitespace-nowrap">
                                                 <i class="fa-solid fa-trash-can"></i>

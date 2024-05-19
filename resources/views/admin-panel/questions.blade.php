@@ -10,16 +10,12 @@
             <div class="sticky top-0 z-10 w-60 md:w-1/3 lg:w-1/4">
                 <x-admin-nav active_page="questions" :notifications="$notifications" />
             </div>
-            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h">
+            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h-screen">
                 <h2 class="mt-10 mb-10 text-3xl font-bold text-center md:mt-0">Questions Management</h2>
 
                 <div class="">
                     <div class="flex flex-wrap items-center justify-between mb-2">
                         <h3 class="text-2xl font-bold">Questions table</h3>
-                        <button class="px-3 py-1.5 rounded-md bg-green-700 hover:bg-green-800 text-white font-bold">
-                            <i class="mr-1 fa-solid fa-plus"></i>
-                            Create new admin
-                        </button>
                     </div>
 
                     <div class="w-full overflow-x-auto">
@@ -103,10 +99,7 @@
                                         <td class="px-4 py-2">{{ $question->description }}</td>
                                         <td class="px-4 py-2">{{ $question->type->name }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap">
-                                            <a href="{{ url()->current() }}?sort={{ request()->sort }}&order={{ request()->order }}&search={{ request()->search }}&questions_page={{ $questions->currentPage() }}" class="px-1.5 py-0.5 font-bold text-white bg-blue-700 rounded-md hover:bg-blue-800 whitespace-nowrap">
-                                                <i class="fa-regular fa-eye"></i>
-                                                Check user
-                                            </a>
+
                                         </td>
                                     </tr>
                                 @endforeach

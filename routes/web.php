@@ -44,17 +44,24 @@ Route::controller(AdminPanelController::class)->group(function () {
 
     Route::get('/admin-panel/reports',                              'reports')->middleware('auth');
     Route::post('/admin-panel/reports/mark-as-read/{report:id}',    'markReportAsRead')->where(['id' => '[0-9]+'])->middleware('auth');
-    Route::post('/admin-panel/reports/delete/{report:id}',          'deleteReport')->where(['id' => '[0-9]+'])->middleware('auth');
+    Route::delete('/admin-panel/reports/{report:id}',               'deleteReport')->where(['id' => '[0-9]+'])->middleware('auth');
 
     Route::get('/admin-panel/contact',                              'contact')->middleware('auth');
     Route::post('/admin-panel/contact/mark-as-read/{contact:id}',   'markContactAsRead')->where(['id' => '[0-9]+'])->middleware('auth');
-    Route::post('/admin-panel/contact/delete/{contact:id}',         'deleteContact')->where(['id' => '[0-9]+'])->middleware('auth');
+    Route::delete('/admin-panel/contact/{contact:id}',              'deleteContact')->where(['id' => '[0-9]+'])->middleware('auth');
 
     Route::get('/admin-panel/users',                                'users')->middleware('auth');
-    Route::get('/admin-panel/bans',                                 'bans')->middleware('auth');
+
     Route::get('/admin-panel/surveys',                              'surveys')->middleware('auth');
+    Route::delete('/admin-panel/surveys/{survey:id}',               'deleteSurvey')->middleware('auth');
+
     Route::get('/admin-panel/questions',                            'questions')->middleware('auth');
     Route::get('/admin-panel/answers',                              'answers')->middleware('auth');
+    Route::get('/admin-panel/bans',                                 'bans')->middleware('auth');
+
+    Route::get('/admin-panel/ratings',                              'ratings')->middleware('auth');
+    Route::delete('/admin-panel/ratings/{ratings:id}',              'deleteRating')->middleware('auth');
+
     Route::get('/admin-panel/tags',                                 'tags')->middleware('auth');
 });
 

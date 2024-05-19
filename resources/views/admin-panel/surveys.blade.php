@@ -11,7 +11,7 @@
                 <x-admin-nav active_page="surveys" :notifications="$notifications" />
             </div>
 
-            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h">
+            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h-screen">
                 <h2 class="mt-10 text-3xl font-bold text-center md:mt-0">Surveys Management</h2>
 
                 <div class="mt-10">
@@ -134,10 +134,10 @@
                                         <td class="px-4 py-2 whitespace-nowrap">{{ empty($survey->start_date) ? 'NULL' : $survey->start_date }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap">{{ empty($survey->end_date) ? 'NULL' : $survey->end_date }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap">
-                                            <button class="px-1.5 py-0.5 font-bold text-white bg-blue-700 rounded-md hover:bg-blue-800 whitespace-nowrap">
+                                            <a href="{{ url()->current() }}?sort={{ request()->sort }}&order={{ request()->order }}&search={{ request()->search }}&survey_id={{ $survey->id }}&check_survey_questions_page={{ $check_survey_questions->currentPage() }}&surveys_page={{ $surveys->currentPage() }}" class="px-1.5 py-0.5 font-bold text-white bg-blue-700 rounded-md hover:bg-blue-800 whitespace-nowrap">
                                                 <i class="fa-regular fa-eye"></i>
                                                 Check survey
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -193,10 +193,15 @@
                                     <i class="fa-solid fa-ban"></i>
                                     Block survey
                                 </button>
-                                <button class="w-full px-3 py-1 font-bold text-white bg-red-700 rounded-md hover:bg-red-800 whitespace-nowrap">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                    Delete survey
-                                </button>
+                                <form action="/admin-panel/surveys/{{ $check_survey->id }}" method="POST" class="relative flex flex-row grow">
+                                    @method('delete')
+                                    @csrf
+
+                                    <button type="submit" class="w-full px-3 py-1 font-bold text-white bg-red-700 rounded-md hover:bg-red-800 whitespace-nowrap">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                        Delete survey
+                                    </button>
+                                </form>
                             </div>
                         </div>
 

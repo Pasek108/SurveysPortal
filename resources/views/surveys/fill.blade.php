@@ -144,7 +144,7 @@
         </div>
     @endif
 
-    <div id="thank_you" class="w-full min-h-screen py-12 text-lg" style="{{ (!$did_user_vote) ? 'display: none' : ''}}">
+    <div id="thank_you" class="w-full min-h-screen py-12 text-lg" style="{{ !$did_user_vote ? 'display: none' : '' }}">
         <div class="w-full mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
             <div class="w-full p-4 bg-white shadow sm:p-8 sm:rounded-lg">
                 <div class="relative z-0 w-full">
@@ -154,12 +154,12 @@
                             {{ $survey->end_message }}
                         </div>
 
-                        <div class="flex flex-row items-center justify-center w-full gap-2 mt-4">
-                            <a href="/report/{{ $survey->id }}" class="w-1/2 px-4 py-2 font-semibold text-red-700 bg-transparent border border-red-500 rounded hover:bg-red-700 hover:text-white hover:border-transparent">
+                        <div class="flex md:flex-row flex-col items-center justify-center w-full gap-2 mt-4">
+                            <a href="/report/{{ $survey->id }}" class="w-full md:w-1/2 px-4 py-2 font-semibold text-red-700 bg-transparent border border-red-500 rounded hover:bg-red-700 hover:text-white hover:border-transparent">
                                 <i class="fa-solid fa-triangle-exclamation"></i> Report this survey
                             </a>
 
-                            <a href="/" class="w-1/2 px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent">
+                            <a href="/" class="w-full md:w-1/2 px-4 py-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-700 hover:text-white hover:border-transparent">
                                 Back to home page
                             </a>
                         </div>

@@ -11,7 +11,7 @@
     </div>
 
     <div class="max-w-screen-xl mx-auto mt-12 mb-16 md:w-5/6">
-        <div class="py-12 bg-white shadow sm:rounded-lg">
+        <div class="px-4 py-12 bg-white shadow sm:rounded-lg">
             <div class="max-w-xl mx-auto">
 
                 <form method="POST" action="{{ route('register') }}">

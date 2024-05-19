@@ -207,8 +207,8 @@ class SurveyController extends Controller
             $lastest_time = explode(":", date('H:i', strtotime($user_lastest_survey->created_at)));
             $now_time = explode(":", date('H:i', strtotime("now")));
 
-            if ($lastest_time[0] == $now_time[0] && $now_time[1] - $lastest_time[1] < 5) {
-                return response()->json(['status' => 429, 'messages' => ["You can add a survey once every 5 minutes"]]);
+            if ($lastest_time[0] == $now_time[0] && $now_time[1] - $lastest_time[1] < 2) {
+                return response()->json(['status' => 429, 'messages' => ["You can add a survey once every 2 minutes"]]);
             }
         }
 

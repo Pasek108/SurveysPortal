@@ -11,7 +11,7 @@
                 <x-admin-nav active_page="contact" :notifications="$notifications" />
             </div>
 
-            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h">
+            <div class="flex flex-col w-full p-5 md:w-2/3 lg:w-3/4 min-h-screen">
                 <h2 class="mt-10 text-3xl font-bold text-center md:mt-0">Contact</h2>
 
                 <div class="mt-10">
@@ -36,8 +36,10 @@
                                             </form>
                                         @endif
 
-                                        <form method="POST" action="/admin-panel/contact/delete/{{ $message->id }}">
+                                        <form method="POST" action="/admin-panel/contact/{{ $message->id }}">
+                                            @method('delete')
                                             @csrf
+
                                             <button type="submit" class="w-full px-3 py-1 font-bold text-white bg-red-700 rounded-md hover:bg-red-800 whitespace-nowrap">
                                                 <i class="fa-solid fa-trash-can"></i>
                                                 Delete message

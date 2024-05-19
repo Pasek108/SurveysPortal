@@ -19,7 +19,7 @@
                             </p>
                         </div>
 
-                        <div class="flex flex-row items-end justify-between md:justify-start md:flex-col min-w-fit">
+                        <div class="flex flex-row items-end justify-between md:justify-start md:flex-col min-w-fit md:mt-0 mt-5">
                             <div class="whitespace-nowrap">{{ $survey->countQuestions($survey->id) }} questions</div>
                             <div class="whitespace-nowrap">{{ $survey->countRespondents($survey->id) }} respondents</div>
                             <div class="whitespace-nowrap">{{ $survey->getRating($survey->id) }} <i class="fa-solid fa-star text-amber-400"></i></div>
