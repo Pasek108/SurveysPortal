@@ -254,6 +254,7 @@ Tables offering other functionalities are:
 - `contact` – contact with the site owner
 
 The connection between the application and the database is defined in the `app/config/database.php` file using the data contained in the `.env` file.
+
 ![erd diagram](/_for_readme/env_file_content.png)
 
 <br>
