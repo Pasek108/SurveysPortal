@@ -1,66 +1,260 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Surveys Portal - Readme
+<details>
+  <summary>❓Why my commits often have no names and I'm not using branches❓</summary>
+  <ul>
+    <li>I often create with bursts many things at once</li>
+    <li>I don't plan things ahead, I just create things that seems good at that moment</li>
+    <li>Sometimes I have bad internet connection and it is troublesome to send commits</li>
+    <li>I'm coding alone so creating branches and describing commits is not useful for me</li>
+  <ul>
+</details>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Table of Contents
+- [Informations](#informations)
+- [Project requirements](#project-requirements)
+   - [By page](#by-page)
+   - [By role](#by-role)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Setup](#setup)
+- [Database](#database)
+- [User interface](#user-interface)
 
-## About Laravel
+<br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Informations
+The primary goal of the project is to provide users with the ability to participate in surveys, create them, and collect data on the results based on the provided answers. To avoid storing and displaying inappropriate content to users, the site will have moderator and administrator roles. Additionally, there will be a super administrator role who is the owner of the site.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Project requirements
 
-## Learning Laravel
+### By page
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Each page
+- Return to the home page
+- Navigation to the login/registration page if the user is not logged in
+- Access to the public survey search page
+- Access to the profile and logging out if the user is logged in
+- Contact to the portal owner (except admin panel)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Home page
+- Information about the portal
+- The most popular and recently created public surveys with the option to open them
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+After login or register:
+- Access to surveys for logged-in users
+- Ability to create their own surveys
 
-## Laravel Sponsors
+#### Public survey search page
+- Search for a given string in the title, description, and questions
+- Filter by tags
+- Sort search results in ascending or descending order by popularity, creation date, rating, number of respondents, and number of questions
+- Navigation through paginated results
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### Login page
+- Navigation to the registration page
+- Logging in an existing user
+- Remember the user
+- Reset the password (link to password reset page should be sent to email address)
+- Redirection to home page after successful login
 
-### Premium Partners
+#### Password reset page
+- Set a new password
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+#### Registration page
+- Navigate to the login page
+- Create new user account (if form is filled correctly, activation link should be sent to provided email address)
+- Redirection to home page after successful registration
 
-## Contributing
+#### Profile page
+- Link to the admin panel if the user has moderator, administrator or owner permissions
+- List of user created surveys with the option to open them
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Survey creation page
+- A title
+- A description
+- Final information
+- At least one tag
+- At least one question with at least one answer
+- Start and end dates
+- The option to allow non-logged-in users to vote
+- The option to set a password required for voting (private voting)
 
-## Code of Conduct
+A survey question can contain answers of one of the following types:
+- Single choice
+- Multiple choice
+- Text field
+- Range
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+After successfully creating a survey, the user should be redirected to the survey page.
 
-## Security Vulnerabilities
+#### Survey page
+- Display a password entry form if the survey is private
+- Display basic information about the survey and allow participation if it is public or if the correct password has been entered
+- Allow the survey owner to navigate to the survey editing page and the statistics page of the given answers
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Survey editing page 
+- Editing the survey (similar to survey creation)
+  
+#### Survey completion page 
+- Progress of completing the survey
+- Questions with the ability to answer them
+- Option to submit the answers and rate survey
+- Final information after filling the survey
 
-## License
+#### Admin panel
+- For moderator:
+  - Review reports and forward them to administrators if they violate the rules
+  - Review data in the database
+- For administrator:
+  - Do everything a moderator can do
+  - Ban users
+  - Block surveys
+- For the owner:
+  - Do everything an administrator can do
+  - Review contact messages
+  - Assign rights to users
+  - Delete and edit all data in the database
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+----------------------------------
+
+### By role
+By role, the portal should offer the following capabilities:
+
+#### System
+- Display appropriate pages
+- Store user data
+- Calculate statistics from survey answers
+- Send emails with activation codes
+- Send emails with password reset links
+
+#### Guest
+- Create an account
+- Log into the account
+- Search for public surveys
+- Display information about public surveys
+- Participate in public and private surveys available to non-logged-in users
+
+#### User
+- Everything a guest can do
+- Reset the password
+- Create surveys
+- Display the list of their own surveys
+- Display statistics of their own surveys from the provided answers
+- Edit their own surveys
+- Report surveys
+- Participate in public and private surveys available to logged-in users
+
+#### Moderator
+- Everything a user can do
+- Display data contained in the database
+- Forward reported surveys to the administration for blocking
+- Forward users to the administration for banning
+
+#### Administrator
+- Everything a moderator can do
+- Block surveys
+- Ban users
+
+### Owner
+- Everything an administrator can do
+- Read contact messages
+- Assign rights to users
+- Delete and edit all data in the database
+
+<br>
+
+## Technologies
+Languages:
+- HTML
+- CSS
+- JS
+- PHP 8.1.12
+
+Libraries and frameworks:
+- [Laravel 10.2.0](https://laravel.com/docs/10.x)
+- [Tailwind CSS 3.2.7](https://tailwindcss.com/docs/installation)
+- [Font Awesome 6.3.0](https://fontawesome.com/docs)
+- [Google Fonts](https://developers.google.com/fonts/docs/getting_started#a_quick_example)
+  
+Programs:
+- [VSCode](https://code.visualstudio.com)
+- [XAMPP 8.1.12](https://www.apachefriends.org/download.html)
+- [Node.js v18.13.0](https://nodejs.org/en)
+
+<br>
+
+## Features
+- Login and register:
+
+<br>
+
+> [!NOTE]  
+> Room for improvements:
+> - Password reset
+> - Password reminder
+> - Account activation via email confirmation
+> - Survey statistics
+> - Specific FAQ on the homepage
+> - User banning and unbanning
+> - Survey blocking and unblocking
+> - Specific dashboard in the admin panel
+> - Specific and consistent seeding
+> - Survey search
+> - Deletion of users, questions, answers, user responses, tags, and bans
+> - User and tag creation from the admin panel
+> - Navigation from user management to user ban data, user rating data, user survey response data
+> - Navigation from survey management to survey rating data, user response data
+> - Navigation from question management to the survey containing the question and all responses to that question
+> - Navigation from answer management to the user who provided the answer, the question to which the answer is given, and the survey containing it
+
+<br>
+
+## Setup
+To run the application, you need to have installed:
+- XAMPP 8.1.12
+- Composer 2.5.4
+- Node.js v18.13.0
+
+Then, you need to:
+- Place the project on your disk
+- Create a database named 'surveys_portal' in phpmyadmin
+- Save the `.env.example` file as `.env` in the project folder
+- In the project folder, run the following commands:
+  - `composer install`
+  - `php artisan migrate`
+  - `php artisan db:seed`
+  - `php artisan key:generate`
+  - `php artisan storage:link`
+
+After that, start the project with the following commands:
+- `php artisan serve`
+- `npm run dev`
+
+<br>
+
+## Database
+![erd diagram](/_for_readme/erd_diagram.jpg)
+
+The most important tables providing basic functionality in the database are:
+- `users` – user data
+- `surveys` – survey information, start, end, access, survey blocking
+- `questions` – survey question information
+- `users_answers` – user responses to survey questions
+
+Tables offering other functionalities are:
+- `bans` – user bans
+- `roles` – user roles
+- `reports` – survey or user reports
+- `ratings` – survey ratings
+- `surveys_tags` and `tags` – survey tags
+- `answers` – prepared answer choices for surveys
+- `question_types` – types of survey answers
+- `contact` – contact with the site owner
+
+The connection between the application and the database is defined in the `app/config/database.php` file using the data contained in the `.env` file.
+![erd diagram](/_for_readme/env_file_content.png)
+
+<br>
+
