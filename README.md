@@ -120,7 +120,6 @@ After successfully creating a survey, the user should be redirected to the surve
 ----------------------------------
 
 ### By role
-By role, the portal should offer the following capabilities:
 
 #### System
 - Display appropriate pages
